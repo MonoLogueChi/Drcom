@@ -79,7 +79,10 @@ namespace Drcom
             {
                 MessageBox.Show("已经是最新版本");
             }
-            
+            else
+            {
+                Process.Start("https://github.com/MonoLogueChi/Drcom/releases");
+            }
         }
     }
 }
