@@ -1,26 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace Drcom.net
 {
     public class NewApp
     {
-        public static bool IsNew()
+        public static string[] IsNew()
         {
-            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            string versionxml = "http://md.xxwhite.com/version/Drcom.xml";
-            XDocument oXDoc = XDocument.Load(versionxml);
-            XElement root = oXDoc.Root;
-            XElement lastversion = root.Element("version");
+            try
+            {
+                string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            return (version == lastversion.Value);
+                string versionxml = "http://md.xxwhite.com/version/Drcom.xml";
+                XDocument oXDoc = XDocument.Load(versionxml);
+                XElement root = oXDoc.Root;
+                XElement lastversion = root.Element("version");
+                XElement data = root.Element("data");
 
+                string[] versiondata = new string[3] { version, lastversion.Value, data.Value };
+
+                return versiondata;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

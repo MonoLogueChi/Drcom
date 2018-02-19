@@ -13,20 +13,20 @@ namespace Drcom
         public MainWindow()
         {
             InitializeComponent();
-            if (Seeting.GetSetting("nip") != "")
+            if (Setting.GetSetting("nip") != "")
             {
                 SaveIp.IsChecked = true;
-                TextIp.Text = Seeting.GetSetting("nip");
+                TextIp.Text = Setting.GetSetting("nip");
             }
-            if (Seeting.GetSetting("uid") != "")
+            if (Setting.GetSetting("uid") != "")
             {
                 SaveUid.IsChecked = true;
-                TextUid.Text = Seeting.GetSetting("uid");
+                TextUid.Text = Setting.GetSetting("uid");
             }
-            if (Seeting.GetSetting("pwd") != "")
+            if (Setting.GetSetting("pwd") != "")
             {
                 SavePwd.IsChecked = true;
-                TextPwd.Password = Seeting.GetSetting("pwd");
+                TextPwd.Password = Setting.GetSetting("pwd");
             }
         }
 
@@ -41,15 +41,15 @@ namespace Drcom
             //保存ip账号密码
             if (SaveIp.IsChecked == true)
             {
-                Seeting.UpdateSetting("nip", nip);
+                Setting.UpdateSetting("nip", nip);
             }
             if (SaveUid.IsChecked == true)
             {
-                Seeting.UpdateSetting("uid", uid);
+                Setting.UpdateSetting("uid", uid);
             }
             if (SavePwd.IsChecked == true)
             {
-                Seeting.UpdateSetting("pwd", pwd);
+                Setting.UpdateSetting("pwd", pwd);
             }
 
             var relust = CsuNet.LoginCsuNet(nip, uid, pwd);
@@ -75,11 +75,11 @@ namespace Drcom
         //检查更新
         private void FindNew(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (NewApp.IsNew())
-            {
-                MessageBox.Show("已经是最新版本");
-            }
-            else
+            string[] version = NewApp.IsNew();
+            MessageBox.Show("当前版本为：" + version[0] + "\r\n" +
+                            "最新版本为：" + version[1] + "\r\n" +
+                            "最后更新时间为：" + version[2]);
+            if (version[0] != version[1])
             {
                 Process.Start("https://github.com/MonoLogueChi/Drcom/releases");
             }

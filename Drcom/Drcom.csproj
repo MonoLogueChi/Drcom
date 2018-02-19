@@ -126,7 +126,7 @@
   <ItemGroup>
     <Compile Include="net\CsuNet.cs" />
     <Compile Include="net\NewApp.cs" />
-    <Compile Include="net\Seeting.cs" />
+    <Compile Include="net\Setting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

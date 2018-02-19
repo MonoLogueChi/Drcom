@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Drcom.net
 {
-    public class Seeting
+    public class Setting
     {
         //获取设置
         public static string GetSetting(string settingName)
