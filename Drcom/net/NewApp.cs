@@ -8,12 +8,11 @@ namespace Drcom.net
     {
         public static string[] IsNew()
         {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             try
             {
-                string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-                string versionxml = "http://md.xxwhite.com/version/Drcom.xml";
+                string versionxml = "http://v.xxwhite.com/version/Drcom.xml?t=" + DateTime.Now.ToFileTimeUtc().ToString();
                 XDocument oXDoc = XDocument.Load(versionxml);
                 XElement root = oXDoc.Root;
                 XElement lastversion = root.Element("version");
@@ -25,7 +24,7 @@ namespace Drcom.net
             }
             catch (Exception e)
             {
-                return null;
+                return (new string[3]{version, "0.0.0.0" ,"未检测到更新"});
             }
         }
     }
