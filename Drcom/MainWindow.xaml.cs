@@ -81,7 +81,7 @@ namespace Drcom
                             "最后更新时间为：" + version[2]);
             if (version[0] != version[1])
             {
-                Process.Start("https://github.com/MonoLogueChi/Drcom/releases");
+                Process.Start("https://gitee.com/monologuechi/Drcom/releases");
             }
         }
     }
