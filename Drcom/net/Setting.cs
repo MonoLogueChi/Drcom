@@ -6,29 +6,29 @@ namespace Drcom.net
     public class Setting
     {
         //获取设置
-        public static string GetSetting(string settingName)
+        public static string GetSetting(string key)
         {
             try
             {
-                string settingString = ConfigurationManager.AppSettings[settingName].ToString();
-                return settingString;
+                string value = ConfigurationManager.AppSettings[key].ToString();
+                return value;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
         }
 
         //写入设置
-        public static void UpdateSetting(string settingName, string valueName)
+        public static void UpdateSetting(string key, string value)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            if (ConfigurationManager.AppSettings[settingName] != null)
+            if (config.AppSettings.Settings[key] != null)
             {
-                config.AppSettings.Settings.Remove(settingName);
+                config.AppSettings.Settings.Remove(key);
             }
-            config.AppSettings.Settings.Add(settingName, valueName);
+            config.AppSettings.Settings.Add(key, value);
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
