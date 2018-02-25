@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 
 namespace Drcom.net
@@ -39,20 +40,12 @@ namespace Drcom.net
                     using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
                     {
                         result = reader.ReadToEnd();
+                        return LoginCaes(result);
                     }
-                    if (result.Contains("您已经成功登录"))
-                    {
-                        return "您已成功登陆";
-                    }
-                    else
-                    {
-                        return "请检查账号密码及IP是否正确\r\n并确认为未登录状态";
-                    }
-                    
                 }
                 catch (Exception e)
                 {
-                    return "发生未知错误";
+                    return "发生未知错误\r\n请检查登陆IP是否填写正确";
                 }
             }
         }
@@ -70,14 +63,75 @@ namespace Drcom.net
                 using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
                 {
                     var result = reader.ReadToEnd();
-                    return "我也不知道有没有注销成功\r\n下个版本尝试解决";
+                    return LoginCaes(result);
                 }
             }
             catch (Exception e)
             {
                 return "发生未知错误";
             }
-            
+
+        }
+
+        //错误代码
+        public static string LoginCaes(string result)
+        {
+            if (result.Contains("Msg="))
+            {
+                string[] FMsg = Regex.Split(result, "Msg=", RegexOptions.IgnoreCase);
+                int Msg = Convert.ToInt32(FMsg[1].Substring(0, 2));
+
+                switch (Msg)
+                {
+                    case 0:
+                        return "未知错误";
+                    case 1:
+                        string[] Fmsga = Regex.Split(FMsg[1], "msga=", RegexOptions.IgnoreCase);
+                        string msga = Fmsga[1].Substring(1, 1);
+                        if (msga != "\'")
+                        {
+                            return "错误代码：" + msga;
+                        }
+                        else
+                        {
+                            return "账号或密码错误";
+                        }
+                    case 2:
+                        return "该账号正在使用中，请您与网管联系";
+                    case 3:
+                        return "本账号只能在指定地址使用";
+                    case 4:
+                        return "本账号费用超支或时长流量超过限制";
+                    case 5:
+                        return "本账号暂停使用";
+                    case 6:
+                        return "System buffer full";
+                    case 8:
+                        return "本账号正在使用,不能修改";
+                    case 7:
+                        return "未知错误";
+                    case 9:
+                        return "新密码与确认新密码不匹配,不能修改";
+                    case 10:
+                        return "密码修改成功";
+                    case 11:
+                        return "本账号只能在指定地址使用";
+                    case 12:
+                        return "未知错误";
+                    case 13:
+                        return "未知错误";
+                    case 14:
+                        return "注销成功";
+                    case 15:
+                        return "登录成功";
+                }
+
+                return "未知错误";
+            }
+            else
+            {
+                return "您应该大概也许可能已经成功登陆了";
+            }
         }
     }
 }
