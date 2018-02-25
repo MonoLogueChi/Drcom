@@ -19,7 +19,7 @@
         <Button Content="登陆" HorizontalAlignment="Left" Margin="245,266,0,0" VerticalAlignment="Top" Width="75" Click="LoginNet"/>
         <Label Content="登陆ip" HorizontalAlignment="Left" Margin="23,95,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextIp" HorizontalAlignment="Left" Height="23" Margin="73,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
-        <CheckBox x:Name="SaveIp" Content="记住IP" HorizontalAlignment="Left" Margin="287,101,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="GetIp" Content="自动获取IP" HorizontalAlignment="Left" Margin="287,101,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="300,305,0,0" TextWrapping="Wrap" Text="关于软件" VerticalAlignment="Top" Foreground="Blue" TextDecorations="Underline" MouseDown="About"/>
         <TextBlock HorizontalAlignment="Left" Margin="220,305,0,0" TextWrapping="Wrap" Text="检查更新" VerticalAlignment="Top" Foreground="Blue" TextDecorations="Underline" MouseDown="FindNew"/>
 

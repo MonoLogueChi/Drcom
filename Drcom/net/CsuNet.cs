@@ -9,6 +9,38 @@ namespace Drcom.net
 {
     public class CsuNet
     {
+        //获取登陆IP
+        public static string LoginIP()
+        {
+            try
+            {
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://www.qq.com/");
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream stream = resp.GetResponseStream();
+                //获取响应内容  
+                using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
+                {
+                    string result = reader.ReadToEnd();
+
+                    if (result.Contains("v4serip"))
+                    {
+                        string[] Fnip = Regex.Split(result, "v4serip='", RegexOptions.IgnoreCase);
+                        string[] nip = Regex.Split(Fnip[1], "'", RegexOptions.IgnoreCase);
+                        return nip[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
         //登陆
         public static string LoginCsuNet(string nip, string uid, string pwd)
         {
@@ -62,7 +94,7 @@ namespace Drcom.net
                 //获取响应内容  
                 using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
                 {
-                    var result = reader.ReadToEnd();
+                    string result = reader.ReadToEnd();
                     return LoginCaes(result);
                 }
             }
