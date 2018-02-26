@@ -40,7 +40,6 @@ namespace Drcom.net
             }
         }
 
-
         //登陆
         public static string LoginCsuNet(string nip, string uid, string pwd)
         {

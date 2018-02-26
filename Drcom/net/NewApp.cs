@@ -24,7 +24,7 @@ namespace Drcom.net
             }
             catch (Exception e)
             {
-                return (new string[3]{version, "0.0.0.0" ,"未检测到更新"});
+                return (new string[3]{version, "未检测到最新版本" ,"未检测到更新时间"});
             }
         }
     }

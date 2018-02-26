@@ -13,7 +13,13 @@ namespace Drcom
         public MainWindow()
         {
             InitializeComponent();
-            if (Setting.GetSetting("nip") == "")
+            Settings();
+        }
+
+        //初始化配置
+        private void Settings()
+        {
+            if (Setting.GetSetting("nip") == "" || Setting.GetSetting("nip") == null)
             {
                 GetIp.IsChecked = true;
             }

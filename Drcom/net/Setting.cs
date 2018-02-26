@@ -33,5 +33,4 @@ namespace Drcom.net
             ConfigurationManager.RefreshSection("appSettings");
         }
     }
-
 }

@@ -15,8 +15,8 @@
         <PasswordBox x:Name="TextPwd" HorizontalAlignment="Left" Margin="73,189,0,0" VerticalAlignment="Top" Width="135" Height="25"/>
         <CheckBox x:Name="SaveUid" Content="记住账号" HorizontalAlignment="Left" Margin="287,145,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.592,-1"/>
         <CheckBox x:Name="SavePwd" Content="记住密码" HorizontalAlignment="Left" Margin="287,195,0,0" VerticalAlignment="Top"/>
-        <Button Content="注销" HorizontalAlignment="Left" Margin="80,266,0,0" VerticalAlignment="Top" Width="75" Click="LogoutNet"/>
-        <Button Content="登陆" HorizontalAlignment="Left" Margin="245,266,0,0" VerticalAlignment="Top" Width="75" Click="LoginNet"/>
+        <Button x:Name="LogoutButton" Content="注销" HorizontalAlignment="Left" Margin="80,266,0,0" VerticalAlignment="Top" Width="75" Click="LogoutNet"/>
+        <Button x:Name="LoginButton" Content="登陆" HorizontalAlignment="Left" Margin="245,266,0,0" VerticalAlignment="Top" Width="75" Click="LoginNet"/>
         <Label Content="登陆ip" HorizontalAlignment="Left" Margin="23,95,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TextIp" HorizontalAlignment="Left" Height="23" Margin="73,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
         <CheckBox x:Name="GetIp" Content="自动获取IP" HorizontalAlignment="Left" Margin="287,101,0,0" VerticalAlignment="Top"/>
