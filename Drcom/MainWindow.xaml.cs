@@ -51,9 +51,13 @@ namespace Drcom
             if (GetIp.IsChecked == true)
             {
                 TextIp.Text = CsuNet.LoginIP();
+                nip = TextIp.Text;
             }
             //保存IP，账号和密码
-            Setting.UpdateSetting("nip", nip);
+            if (TextIp.Text != null & TextIp.Text != "")
+            {
+                Setting.UpdateSetting("nip", nip);
+            }
             if (SaveUid.IsChecked == true)
             {
                 Setting.UpdateSetting("uid", uid);
@@ -71,12 +75,6 @@ namespace Drcom
         //注销按钮
         private void LogoutNet(object sender, RoutedEventArgs e)
         {
-            //获取登陆IP
-            if (GetIp.IsChecked == true)
-            {
-                TextIp.Text = CsuNet.LoginIP();
-            }
-
             string nip = TextIp.Text;
 
             var relust = CsuNet.LogoutCsuNet(nip);
