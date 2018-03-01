@@ -22,9 +22,9 @@ namespace Drcom.net
 
                 return versiondata;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return (new string[3]{version, "未检测到最新版本" ,"未检测到更新时间"});
+                return (new string[3] { version, "未检测到最新版本", "未检测到更新时间" });
             }
         }
     }

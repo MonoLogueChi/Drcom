@@ -13,7 +13,7 @@ namespace Drcom.net
                 string value = ConfigurationManager.AppSettings[key].ToString();
                 return value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -24,13 +24,17 @@ namespace Drcom.net
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            if (config.AppSettings.Settings[key] != null)
+            try
             {
-                config.AppSettings.Settings.Remove(key);
+                if (config.AppSettings.Settings[key] != null)
+                {
+                    config.AppSettings.Settings.Remove(key);
+                }
+                config.AppSettings.Settings.Add(key, value);
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
             }
-            config.AppSettings.Settings.Add(key, value);
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
+            catch (Exception) { }
         }
     }
 }
