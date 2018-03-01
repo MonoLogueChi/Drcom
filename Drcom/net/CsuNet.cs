@@ -14,7 +14,7 @@ namespace Drcom.net
         {
             try
             {
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://www.qq.com/");
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://pingtcss.qq.com/");
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                 Stream stream = resp.GetResponseStream();
                 //获取响应内容  
@@ -34,7 +34,7 @@ namespace Drcom.net
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -74,7 +74,7 @@ namespace Drcom.net
                         return LoginCaes(result);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return "发生未知错误\r\n请检查登陆IP是否填写正确";
                 }
@@ -97,7 +97,7 @@ namespace Drcom.net
                     return LoginCaes(result);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "发生未知错误";
             }
@@ -114,55 +114,56 @@ namespace Drcom.net
 
                 switch (Msg)
                 {
-                    case 0:
-                        return "未知错误";
+                    case 0:return "未知错误";
                     case 1:
-                        string[] Fmsga = Regex.Split(FMsg[1], "msga=", RegexOptions.IgnoreCase);
-                        string msga = Fmsga[1].Substring(1, 1);
-                        if (msga != "\'")
                         {
-                            return "错误代码：" + msga;
+                            string msga = Regex.Split(FMsg[1], "msga=", RegexOptions.IgnoreCase)[1].Substring(1, 1);
+                            if (msga != "\'")
+                            {
+                                return "错误代码：" + msga;
+                            }
+                            else
+                            {
+                                return "账号或密码错误";
+                            }
                         }
-                        else
-                        {
-                            return "账号或密码错误";
-                        }
-                    case 2:
-                        return "该账号正在使用中，请您与网管联系";
-                    case 3:
-                        return "本账号只能在指定地址使用";
-                    case 4:
-                        return "本账号费用超支或时长流量超过限制";
-                    case 5:
-                        return "本账号暂停使用";
-                    case 6:
-                        return "System buffer full";
-                    case 8:
-                        return "本账号正在使用,不能修改";
-                    case 7:
-                        return "未知错误";
-                    case 9:
-                        return "新密码与确认新密码不匹配,不能修改";
-                    case 10:
-                        return "密码修改成功";
-                    case 11:
-                        return "本账号只能在指定地址使用";
-                    case 12:
-                        return "未知错误";
-                    case 13:
-                        return "未知错误";
+                    case 2: return "该账号正在使用中，请您与网管联系";
+                    case 3: return "本账号只能在指定地址使用";
+                    case 4: return "本账号费用超支或时长流量超过限制";
+                    case 5: return "本账号暂停使用";
+                    case 6: return "System buffer full";
+                    case 8: return "本账号正在使用,不能修改";
+                    case 7: return "未知错误";
+                    case 9: return "新密码与确认新密码不匹配,不能修改";
+                    case 10: return "密码修改成功";
+                    case 11: return "本账号只能在指定地址使用";
+                    case 12: return "未知错误";
+                    case 13: return "未知错误";
+                    //注销成功，还要获取一些信息
                     case 14:
-                        return "注销成功";
-                    case 15:
-                        return "登录成功";
+                        {
+                            try
+                            {
+                                int time = Convert.ToInt32(Regex.Split(FMsg[1], "time=", RegexOptions.IgnoreCase)[1].Substring(1, 9));
+                                float flow = Convert.ToSingle(Regex.Split(FMsg[1], "flow=", RegexOptions.IgnoreCase)[1].Substring(1, 9));
+                                return "注销成功 \r\n" +
+                                       "本次使用时长：" + time + " Min \r\n" +
+                                       "本次使用流量：" + (flow / 1024f).ToString("F2") + " MByte";
+                            }
+                            catch (Exception)
+                            {
+                                return "注销成功";
+                            }
+                        }
+                    case 15: return "登录成功";
                 }
-
                 return "未知错误";
             }
             else
             {
                 return "您应该大概也许可能已经成功登陆了";
             }
+
         }
     }
 }
