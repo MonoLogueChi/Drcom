@@ -28,16 +28,10 @@ namespace Drcom.net
                         string[] nip = Regex.Split(Fnip[1], "'", RegexOptions.IgnoreCase);
                         return nip[0];
                     }
-                    else
-                    {
-                        return null;
-                    }
+                    else { return null; }
                 }
             }
-            catch (Exception)
-            {
-                return null;
-            }
+            catch (Exception) { return null; }
         }
 
         //登陆
@@ -114,18 +108,12 @@ namespace Drcom.net
 
                 switch (Msg)
                 {
-                    case 0:return "未知错误";
+                    case 0: return "未知错误";
                     case 1:
                         {
                             string msga = Regex.Split(FMsg[1], "msga=", RegexOptions.IgnoreCase)[1].Substring(1, 1);
-                            if (msga != "\'")
-                            {
-                                return "错误代码：" + msga;
-                            }
-                            else
-                            {
-                                return "账号或密码错误";
-                            }
+                            if (msga != "\'") { return "错误代码：" + msga; }
+                            else { return "账号或密码错误"; }
                         }
                     case 2: return "该账号正在使用中，请您与网管联系";
                     case 3: return "本账号只能在指定地址使用";
@@ -159,10 +147,7 @@ namespace Drcom.net
                 }
                 return "未知错误";
             }
-            else
-            {
-                return "您应该大概也许可能已经成功登陆了";
-            }
+            else { return "您应该大概也许可能已经成功登陆了"; }
 
         }
     }
