@@ -22,6 +22,5 @@
         <CheckBox x:Name="GetIp" Content="自动获取IP" HorizontalAlignment="Left" Margin="287,101,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="300,305,0,0" TextWrapping="Wrap" Text="关于软件" VerticalAlignment="Top" Foreground="Blue" TextDecorations="Underline" MouseDown="About"/>
         <TextBlock HorizontalAlignment="Left" Margin="220,305,0,0" TextWrapping="Wrap" Text="检查更新" VerticalAlignment="Top" Foreground="Blue" TextDecorations="Underline" MouseDown="FindNew"/>
-
     </Grid>
 </Window>

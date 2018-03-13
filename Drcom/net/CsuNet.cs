@@ -14,22 +14,15 @@ namespace Drcom.net
         {
             try
             {
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://pingtcss.qq.com/");
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                Stream stream = resp.GetResponseStream();
-                //获取响应内容  
-                using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
-                {
-                    string result = reader.ReadToEnd();
+                string result = Get("http://pingtcss.qq.com/");
 
-                    if (result.Contains("v4serip"))
-                    {
-                        string[] Fnip = Regex.Split(result, "v4serip='", RegexOptions.IgnoreCase);
-                        string[] nip = Regex.Split(Fnip[1], "'", RegexOptions.IgnoreCase);
-                        return nip[0];
-                    }
-                    else { return null; }
+                if (result.Contains("v4serip"))
+                {
+                    string[] Fnip = Regex.Split(result, "v4serip='", RegexOptions.IgnoreCase);
+                    string[] nip = Regex.Split(Fnip[1], "'", RegexOptions.IgnoreCase);
+                    return nip[0];
                 }
+                else { return null; }
             }
             catch (Exception) { return null; }
         }
@@ -45,28 +38,10 @@ namespace Drcom.net
             {
                 try
                 {
-                    string content = "DDDDD=" + uid + "@zndx&upass=" + pwd + "&0MKKey= +Login";
+                    string content = "DDDDD=" + uid + "@zndx&upass=" + pwd + "&0MKKey=Login&Submit=%E7%99%BB+%E5%BD%95";
                     string posthost = "http://" + nip + "/";
-                    string result = null;
-
-                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create(posthost);
-                    req.Method = "POST";
-                    req.ContentType = "application/x-www-form-urlencoded";
-                    byte[] data = Encoding.UTF8.GetBytes(content);
-                    req.ContentLength = data.Length;
-                    using (Stream reqStream = req.GetRequestStream())
-                    {
-                        reqStream.Write(data, 0, data.Length);
-                        reqStream.Close();
-                    }
-                    HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                    Stream stream = resp.GetResponseStream();
-                    //获取响应内容  
-                    using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
-                    {
-                        result = reader.ReadToEnd();
-                        return LoginCaes(result);
-                    }
+                    string result = Post(posthost, content);
+                    return LoginCaes(result);
                 }
                 catch (Exception)
                 {
@@ -81,15 +56,8 @@ namespace Drcom.net
             try
             {
                 string gethost = "http://" + nip + "/F.htm";
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(gethost);
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                Stream stream = resp.GetResponseStream();
-                //获取响应内容  
-                using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
-                {
-                    string result = reader.ReadToEnd();
-                    return LoginCaes(result);
-                }
+                string result = Get(gethost);
+                return LoginCaes(result);
             }
             catch (Exception)
             {
@@ -149,6 +117,43 @@ namespace Drcom.net
             }
             else { return "您应该大概也许可能已经成功登陆了"; }
 
+        }
+
+        //get操作
+        public static string Get(string gethost)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(gethost);
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream stream = resp.GetResponseStream();
+            //获取响应内容  
+            using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
+            {
+                string result = reader.ReadToEnd();
+                return result;
+            }
+        }
+
+        //post操作
+        public static string Post(string posthost, string content)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(posthost);
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+            byte[] data = Encoding.UTF8.GetBytes(content);
+            req.ContentLength = data.Length;
+            using (Stream reqStream = req.GetRequestStream())
+            {
+                reqStream.Write(data, 0, data.Length);
+                reqStream.Close();
+            }
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream stream = resp.GetResponseStream();
+            //获取响应内容  
+            using (StreamReader reader = new StreamReader(stream, Encoding.ASCII))
+            {
+                string result = reader.ReadToEnd();
+                return result;
+            }
         }
     }
 }
