@@ -85,7 +85,7 @@ namespace Drcom
         //关于软件
         private void About(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Process.Start("http://url.xxwhite.com?id=5a884de19f5454543ef4201e");
+            Process.Start("http://www.xxwhite.com/2018/Drcom.html");
         }
         //检查更新
         private void FindNew(object sender, System.Windows.Input.MouseButtonEventArgs e)
