@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-
+using Drcom.logout;
 using Drcom.net;
 
 namespace Drcom
@@ -82,6 +82,13 @@ namespace Drcom
             MessageBox.Show(relust);
         }
 
+        //强制登出
+        private void Logout(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            LogoutWindows l = new LogoutWindows();
+            l.Title = "本机MAC：" + GetMac.GetMacAddressByNetworkInformation();
+            l.Show();
+        }
         //关于软件
         private void About(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
