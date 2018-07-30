@@ -12,7 +12,7 @@ namespace Drcom.net
 
             try
             {
-                string versionxml = "http://v.xxwhite.com/version/Drcom.xml?t=" + DateTime.Now.ToFileTimeUtc().ToString();
+                string versionxml = "https://gitee.com/monologuechi/Drcom/raw/master/Drcom.xml?t=" + DateTime.Now.ToFileTimeUtc().ToString();
                 XDocument oXDoc = XDocument.Load(versionxml);
                 XElement root = oXDoc.Root;
                 XElement lastversion = root.Element("version");
