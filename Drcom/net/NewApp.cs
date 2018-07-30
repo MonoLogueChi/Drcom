@@ -17,8 +17,9 @@ namespace Drcom.net
                 XElement root = oXDoc.Root;
                 XElement lastversion = root.Element("version");
                 XElement data = root.Element("data");
+                XElement url = root.Element("url");
 
-                string[] versiondata = new string[3] { version, lastversion.Value, data.Value };
+                string[] versiondata = new string[4] { version, lastversion.Value, data.Value, url.Value };
 
                 return versiondata;
             }
